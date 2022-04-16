@@ -29,6 +29,14 @@ class UsuariosController {
     }
 
 
+    public async list_mon_disponibles_usu_pais (req: Request, res : Response) {
+        console.log(req.params);
+        const {id} = req.params;
+        const coon = await connect();      
+        const user = await coon.query('select monedas.id_moneda, monedas.nombre_moneda from usuarios inner join paises on usuarios.id_pais = paises.id_pais inner join monedas on paises.id_moneda = monedas.id_moneda where usuarios.id_usuario = ? and monedas.id_moneda NOT IN ( select monedas.id_moneda from usuarios_monedas inner join monedas on usuarios_monedas.id_moneda = monedas.id_moneda where usuarios_monedas.id_usuario = ? )' , [id,id]);
+        return res.json(user[0]);  
+    }
+
     public async create (req: Request, res : Response) {
         console.log(req.body);
         const coon = await connect(); 
@@ -43,8 +51,8 @@ class UsuariosController {
         const coon = await connect(); 
        // paisesController.list_moneda_pais({});
         await  coon.query('INSERT INTO usuarios_monedas set ?',[req.body]);
-        return res.json(req.body);
-        //token
+        return res.json({text: 'Moneda agregada correctamente'});
+
     }
 
     public async delete (req: Request, res : Response) {

@@ -36,6 +36,15 @@ class UsuariosController {
             return res.json(user[0]);
         });
     }
+    list_mon_disponibles_usu_pais(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log(req.params);
+            const { id } = req.params;
+            const coon = yield (0, database_1.connect)();
+            const user = yield coon.query('select monedas.id_moneda, monedas.nombre_moneda from usuarios inner join paises on usuarios.id_pais = paises.id_pais inner join monedas on paises.id_moneda = monedas.id_moneda where usuarios.id_usuario = ? and monedas.id_moneda NOT IN ( select monedas.id_moneda from usuarios_monedas inner join monedas on usuarios_monedas.id_moneda = monedas.id_moneda where usuarios_monedas.id_usuario = ? )', [id, id]);
+            return res.json(user[0]);
+        });
+    }
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log(req.body);
@@ -52,8 +61,7 @@ class UsuariosController {
             const coon = yield (0, database_1.connect)();
             // paisesController.list_moneda_pais({});
             yield coon.query('INSERT INTO usuarios_monedas set ?', [req.body]);
-            return res.json(req.body);
-            //token
+            return res.json({ text: 'Moneda agregada correctamente' });
         });
     }
     delete(req, res) {
