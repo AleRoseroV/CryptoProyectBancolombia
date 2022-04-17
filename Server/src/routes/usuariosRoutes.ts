@@ -13,6 +13,7 @@ class UsuariosRoutes {
     config() : void {
         this.router.get('/', usuariosController.list);
         this.router.get('/listar-monedas-usuario/:id', usuariosController.list_mon_usu);
+        this.router.get('/monedas/:id',  usuariosController.listMonedas_id);
         this.router.get('/:id', usuariosController.list_id);
         this.router.get('/listar-monedas-disponibles-usuario/:id', usuariosController.list_mon_disponibles_usu_pais);
         this.router.post('/', usuariosController.create);
@@ -20,6 +21,7 @@ class UsuariosRoutes {
         this.router.delete('/:id',usuariosController.delete);
         this.router.delete('/delete-usuario-moneda/:id/:mon',usuariosController.deleteUsuarioMoneda);
         this.router.put('/:id', usuariosController.update);
+        this.router.put('/actualiza-moneda/:id', usuariosController.updateMoneda);
     }
 
 }

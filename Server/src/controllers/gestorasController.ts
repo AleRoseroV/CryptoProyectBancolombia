@@ -26,6 +26,15 @@ class GestorasController {
         await  coon.query('INSERT INTO gestoras set ?',[req.body]);
         return res.json(req.body);
     }
+
+    public async listMonedasGestorasPais (req: Request, res : Response) {
+        console.log(req.params);
+        const {id} = req.params;
+        const coon = await connect();      
+        const resul = await coon.query('select gestoras.id_gestora, gestoras.nombre_gestora, monedas.id_moneda, monedas.nombre_moneda, monedas.simbolo_moneda, monedas.valor_moneda from usuarios inner join paises on usuarios.id_pais = paises.id_pais left join monedas on paises.id_moneda = monedas.id_moneda inner join gestoras on paises.id_moneda = gestoras.id_moneda and paises.id_pais = gestoras.id_pais where usuarios.id_usuario = ?' , [id]);
+        return res.json(resul[0]); 
+
+    }
 }
 const gestorasController = new GestorasController();
 export default gestorasController;

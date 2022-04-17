@@ -35,6 +35,15 @@ class GestorasController {
             return res.json(req.body);
         });
     }
+    listMonedasGestorasPais(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log(req.params);
+            const { id } = req.params;
+            const coon = yield (0, database_1.connect)();
+            const resul = yield coon.query('select gestoras.id_gestora, gestoras.nombre_gestora, monedas.id_moneda, monedas.nombre_moneda, monedas.simbolo_moneda, monedas.valor_moneda from usuarios inner join paises on usuarios.id_pais = paises.id_pais left join monedas on paises.id_moneda = monedas.id_moneda inner join gestoras on paises.id_moneda = gestoras.id_moneda and paises.id_pais = gestoras.id_pais where usuarios.id_usuario = ?', [id]);
+            return res.json(resul[0]);
+        });
+    }
 }
 const gestorasController = new GestorasController();
 exports.default = gestorasController;

@@ -36,6 +36,15 @@ class UsuariosController {
             return res.json(user[0]);
         });
     }
+    listMonedas_id(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log(req.params);
+            const { id } = req.params;
+            const coon = yield (0, database_1.connect)();
+            const user = yield coon.query('select id_moneda,nombre_moneda,simbolo_moneda,valor_moneda from monedas where id_moneda = ?', [id]);
+            return res.json(user[0]);
+        });
+    }
     list_mon_disponibles_usu_pais(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log(req.params);
@@ -90,6 +99,15 @@ class UsuariosController {
             const coon = yield (0, database_1.connect)();
             yield coon.query('update usuarios set ? where id_usuario = ?', [req.body, id]);
             return res.json({ text: 'Usuario ' + id + ' actualizado correctamente' });
+        });
+    }
+    updateMoneda(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log(req.body);
+            const { id } = req.params;
+            const coon = yield (0, database_1.connect)();
+            yield coon.query('update monedas set  ? where id_moneda = ?', [req.body, id]);
+            return res.json({ text: 'Moneda ' + id + ' actualizado correctamente' });
         });
     }
 }

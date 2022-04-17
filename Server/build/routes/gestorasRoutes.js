@@ -13,6 +13,7 @@ class GestorasRoutes {
     config() {
         this.router.get('/listar', gestorasController_1.default.listGestoras);
         this.router.get('/list-moneda-gestora/:id', gestorasController_1.default.listMonedasGestoras);
+        this.router.get('/list-moneda-gestora-pais-usuario/:id', gestorasController_1.default.listMonedasGestorasPais);
         this.router.post('/crear-gestora', gestorasController_1.default.createGestora);
     }
 }
