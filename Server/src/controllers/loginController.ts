@@ -41,9 +41,9 @@ class LoginController {
         const savedUser =  ([req.body]);
         const token: string  = jwt.sign({savedUser}, process.env.TESTING || 'test');
         
-        res.header('auth-token',token).json(savedUser);
+res.header('auth-token',token).json(savedUser);
 
-        if (!Error){
+        if (!user){
             return res.status(400).json('usuario invalido');
             
         } else {

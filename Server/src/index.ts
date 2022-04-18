@@ -4,10 +4,12 @@ import express, {Application} from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 
+
 import paisesRoutes from './routes/paisesRoutes';
 import usuariosRoutes from './routes/usuariosRoutes';
 import loginRoutes from './routes/loginRoutes';
 import gestorasRoutes from './routes/gestorasRoutes';
+
 
 class Server {
     public app: Application;
@@ -16,7 +18,7 @@ class Server {
         this.config();
         this.routes();
     }
-
+    
     config() : void {
         this.app.set('port', process.env.PORT || 3000);
         this.app.use(morgan("dev"));
@@ -30,7 +32,7 @@ class Server {
         this.app.use('/api/login',loginRoutes);
         this.app.use('/api/paises',paisesRoutes);
         this.app.use('/api/usuarios',usuariosRoutes);
-        this.app.use('/api/gestoras', gestorasRoutes)
+        this.app.use('/api/gestoras', gestorasRoutes);
     }
 
     start() : void {
